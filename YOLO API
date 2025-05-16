@@ -1,0 +1,17 @@
+from flask import Flask, request, jsonify
+from ultralytics import YOLO
+
+app = Flask(__name__)
+model = YOLO("yolov8n.pt")  # 例：学習済み食材モデル
+
+@app.route('/yolo', methods=['POST'])
+def detect():
+    image = request.data
+    with open('temp.jpg', 'wb') as f:
+        f.write(image)
+    results = model('temp.jpg')
+    ingredients = list(set(obj.name for obj in results[0].boxes))
+    return jsonify(ingredients)
+
+if __name__ == '__main__':
+    app.run(port=5000)
