@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>冷蔵庫レシピAI</title>
+</head>
+<body>
+  <h1>冷蔵庫の中の画像からレシピを提案</h1>
+  <form method="post" enctype="multipart/form-data" action="/upload">
+    <input type="file" name="file" accept="image/*" required>
+    <button type="submit">画像をアップロード</button>
+  </form>
+
+  <div th:if="${ingredients}">
+    <h2>検出された食材：</h2>
+    <ul>
+      <li th:each="item : ${ingredients}" th:text="${item}"></li>
+    </ul>
+  </div>
+
+  <div th:if="${recipe}">
+    <h2>提案されたレシピ：</h2>
+    <p th:text="${recipe}"></p>
+  </div>
+</body>
+</html>
