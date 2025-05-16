@@ -1,4 +1,4 @@
-@RestController
+@Controller
 public class FridgeController {
 
     @Autowired
